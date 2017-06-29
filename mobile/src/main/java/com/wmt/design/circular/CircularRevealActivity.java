@@ -1,6 +1,7 @@
 package com.wmt.design.circular;
 
 import android.animation.Animator;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -32,8 +33,8 @@ public class CircularRevealActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_circular_reveal);
 
-        bt1 = (Button)findViewById(R.id.bt1);
-        bt2 = (Button)findViewById(R.id.bt2);
+        bt1 = (Button) findViewById(R.id.bt1);
+        bt2 = (Button) findViewById(R.id.bt2);
         bt1.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -44,11 +45,12 @@ public class CircularRevealActivity extends AppCompatActivity {
 //						centerX, centerY, //扩散的中心点
 //						startRadius, //开始扩散初始半径
 //						endRadius)//扩散结束半径
-
-                Animator animator = ViewAnimationUtils.createCircularReveal(bt1, bt1.getWidth()/2, bt1.getHeight()/2, 0, bt1.getHeight());
-                animator.setDuration(1000);
-                animator.setInterpolator(new AccelerateInterpolator());
-                animator.start();
+                if (Build.VERSION.SDK_INT > Build.VERSION_CODES.LOLLIPOP) {
+                    Animator animator = ViewAnimationUtils.createCircularReveal(bt1, bt1.getWidth() / 2, bt1.getHeight() / 2, 0, bt1.getHeight());
+                    animator.setDuration(1000);
+                    animator.setInterpolator(new AccelerateInterpolator());
+                    animator.start();
+                }
 //				Math.hypot(x, y)
             }
         });
@@ -56,11 +58,12 @@ public class CircularRevealActivity extends AppCompatActivity {
 
             @Override
             public void onClick(View v) {
-                Animator animator = ViewAnimationUtils.createCircularReveal(bt2, 0, 0, 0, (float)Math.hypot(bt2.getWidth(), bt2.getHeight()));
-                animator.setDuration(1000);
-                animator.setInterpolator(new AccelerateInterpolator());
-                animator.start();
-
+                if (Build.VERSION.SDK_INT > Build.VERSION_CODES.LOLLIPOP) {
+                    Animator animator = ViewAnimationUtils.createCircularReveal(bt2, 0, 0, 0, (float) Math.hypot(bt2.getWidth(), bt2.getHeight()));
+                    animator.setDuration(1000);
+                    animator.setInterpolator(new AccelerateInterpolator());
+                    animator.start();
+                }
             }
         });
     }
