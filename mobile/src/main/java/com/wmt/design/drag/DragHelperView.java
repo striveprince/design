@@ -7,7 +7,6 @@ import android.os.Build;
 import android.support.v4.view.MotionEventCompat;
 import android.support.v4.widget.ViewDragHelper;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
@@ -68,6 +67,7 @@ public class DragHelperView extends LinearLayout {
                 throw new RuntimeException("contentPosition:" + contentPosition + "\t\tchild count:" + getChildCount());
             }
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+
     }
 
     @Override
@@ -85,6 +85,7 @@ public class DragHelperView extends LinearLayout {
                 dragHelper.cancel();
                 return false;
         }
+        //content.getTop() == getTop() ? super.onInterceptTouchEvent(ev) :
         return dragHelper.shouldInterceptTouchEvent(ev);
     }
 
@@ -96,18 +97,18 @@ public class DragHelperView extends LinearLayout {
 //        } else {
 //            touchable = true;
 //        }
-        dragHelper.processTouchEvent(event);
+            dragHelper.processTouchEvent(event);
         return true;
     }
 
 
     private boolean isChildView(View parent, View view) {
-        if (view == null) return false;
-        if (view.getParent() == parent) {
+        if(view == null)return false;
+        if (view.getParent() == parent){
             return true;
-        } else {
-            if (view.getParent() instanceof View) {
-                isChildView(parent, (View) view.getParent());
+        }else{
+            if(view.getParent() instanceof View){
+                isChildView(parent,(View)view.getParent());
             }
         }
         return false;
@@ -118,7 +119,7 @@ public class DragHelperView extends LinearLayout {
 
         @Override
         public boolean tryCaptureView(View child, int pointerId) {
-            return child == content || isChildView(content, child);
+            return child == content||isChildView(content,child);
         }
 
         @Override
@@ -132,12 +133,14 @@ public class DragHelperView extends LinearLayout {
         }
 
         @Override
-        public int getViewHorizontalDragRange(View child) {
+        public int getViewHorizontalDragRange(View child)
+        {
             return 1;
         }
 
         @Override
-        public int getViewVerticalDragRange(View child) {
+        public int getViewVerticalDragRange(View child)
+        {
             return 1;
         }
     }

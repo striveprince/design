@@ -30,8 +30,6 @@ import java.util.List;
 
 
 public class DragActivity extends AppCompatActivity {
-    private ViewPager view_pager;
-    private ViewPager content_pager;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -45,7 +43,7 @@ public class DragActivity extends AppCompatActivity {
 
     private void init(){
         setContentView(R.layout.activity_drag);
-        view_pager = (ViewPager)findViewById(R.id.view_pager);
+        ViewPager view_pager = (ViewPager)findViewById(R.id.view_pager);
 
         List<View> views = new ArrayList<>();
         for(int i = 0 ;i<20;i++){
@@ -57,7 +55,7 @@ public class DragActivity extends AppCompatActivity {
         ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(views);
         view_pager.setAdapter(viewPagerAdapter);
 
-        content_pager = (ViewPager)findViewById(R.id.content_pager);
+        ViewPager content_pager = (ViewPager)findViewById(R.id.content_pager);
         List<ContentFragment> list = new ArrayList<>();
         list.add(new ContentFragment());
         list.add(new ContentFragment());

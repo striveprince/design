@@ -3,14 +3,9 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/textView"
-        android:text="dgvvrwuoignrkjlgvnbdubgve "
-        android:textSize="63sp"
-        android:clickable="true"
-        android:onClick="onTextClick"
+    <com.wmt.design.path.measure.WaveView
+        android:id="@+id/waveView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-
+        android:layout_height="match_parent" />
 
 </LinearLayout>
