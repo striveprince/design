@@ -25,27 +25,26 @@ import android.view.View;
 
 public class PaintView extends View{
     private Paint mPaint;
+    private String str = "abcdef";
+
+    public PaintView(Context context) {
+        this(context,null);
+    }
+
+    public PaintView(Context context, AttributeSet attrs) {
+        this(context, attrs,0);
+    }
 
     public PaintView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
+        mPaint = new Paint();
     }
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     public PaintView(Context context, @Nullable AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
-    }
-
-
-    private String str = "abcdef";
-    public PaintView(Context context) {
-        super(context);
         mPaint = new Paint();
     }
 
-
-    public PaintView(Context context, AttributeSet attrs) {
-        super(context, attrs);
-        mPaint = new Paint();
-    }
 
 
     @Override
@@ -53,10 +52,10 @@ public class PaintView extends View{
         super.onDraw(canvas);
         //重置
         mPaint.reset();
-//		mPaint.setColor(Color.RED);
-//		mPaint.setAlpha(255);
-        //设置画笔的样式
-//		mPaint.setStyle(Paint.Style.FILL);//填充内容
+		mPaint.setColor(Color.RED);
+		mPaint.setAlpha(255);
+//        设置画笔的样式
+		mPaint.setStyle(Paint.Style.FILL);//填充内容
 //		mPaint.setStyle(Paint.Style.FILL_AND_STROKE);
 //		mPaint.setStyle(Paint.Style.STROKE);//描边
         //画笔的宽度
@@ -125,7 +124,7 @@ public class PaintView extends View{
         mPaint.setTextSize(50);
 //		float[] measuredWidth = new float[1];
 //		int breakText = mPaint.breakText(str, true, 200, measuredWidth);
-//		Log.i("RICKY", "breakText="+breakText+", str.length()="+str.length()+", measredWidth:"+measuredWidth[0]);
+//		Log.i("wmt", "breakText="+breakText+", str.length()="+str.length()+", measredWidth:"+measuredWidth[0]);
 
         // Rect bounds获取文本的矩形区域（宽高）
 //		mPaint.getTextBounds(text, index, count, bounds)
@@ -139,19 +138,21 @@ public class PaintView extends View{
 //		//measuredWidth得到每一个字符的宽度；textWidths字符数
 //		int textWidths = mPaint.getTextWidths(str, measuredWidth);
 ////		mPaint.getTextWidths(text, start, end, widths)
-//		Log.i("RICKY", "measureText:"+measureText+", textWidths:"+textWidths);
+//		Log.i("wmt", "measureText:"+measureText+", textWidths:"+textWidths);
 
-        int top = 100;
-        int baselineX = 0;
-        mPaint.setTextSize(200);
-        mPaint.setTextAlign(Paint.Align.LEFT);
+//        int top = 100;
+//        int baselineX = 0;
+//        mPaint.setTextSize(200);
+//        mPaint.setTextAlign(Paint.Align.LEFT);
+//
+//        mPaint.setColor(Color.BLUE);
+//        canvas.drawLine(0, top, 2000, top, mPaint);
+//
+//        mPaint.setColor(Color.RED);
+//        //文本Metrics
+//        Paint.FontMetrics fontMetrics = mPaint.getFontMetrics();
 
-        mPaint.setColor(Color.BLUE);
-        canvas.drawLine(0, top, 2000, top, mPaint);
 
-        mPaint.setColor(Color.RED);
-        //文本Metrics
-        Paint.FontMetrics fontMetrics = mPaint.getFontMetrics();
 //		FontMetrics fontMetrics = mPaint.getFontMetricsInt();
 //		fontMetrics.top;
 //		fontMetrics.ascent;
@@ -159,13 +160,13 @@ public class PaintView extends View{
 //		fontMetrics.bottom;
 
 
-        float baselineY = top - fontMetrics.top;
-        canvas.drawText(str, baselineX, baselineY, mPaint);
-        mPaint.setColor(Color.GREEN);
-        canvas.drawText(str, baselineX, top, mPaint);
-        mPaint.setColor(Color.YELLOW);
-        baselineY = top + (fontMetrics.bottom-fontMetrics.top)/2 - fontMetrics.bottom;
-        canvas.drawText(str, baselineX, baselineY, mPaint);
+//        float baselineY = top - fontMetrics.top;
+//        canvas.drawText(str, baselineX, baselineY, mPaint);
+//        mPaint.setColor(Color.GREEN);
+//        canvas.drawText(str, baselineX, top, mPaint);
+//        mPaint.setColor(Color.YELLOW);
+//        baselineY = top + (fontMetrics.bottom-fontMetrics.top)/2 - fontMetrics.bottom;
+//        canvas.drawText(str, baselineX, baselineY, mPaint);
 
 
 

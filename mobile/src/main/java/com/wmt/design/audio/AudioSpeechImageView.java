@@ -7,6 +7,10 @@ import android.support.v7.widget.AppCompatImageView;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 
+import com.wmt.design.R;
+
+import java.io.IOException;
+
 /**
  * project：cutv_ningbo
  * description：
@@ -21,9 +25,10 @@ import android.view.MotionEvent;
 
 
 public class AudioSpeechImageView extends AppCompatImageView {
-    public SpeechListener speechListener;
+    public Speech speech;
     public int maxMillis;
     private RectF rect;
+    private String path;
 
     public AudioSpeechImageView(Context context) {
         this(context, null);
@@ -41,6 +46,8 @@ public class AudioSpeechImageView extends AppCompatImageView {
 
     private void init(Context context, @Nullable AttributeSet attrs) {
         rect = new RectF();
+        path = context.getResources().getString(R.string.app_name);
+        speech = new AudioRecordCallback();
     }
 
     @Override
@@ -52,24 +59,36 @@ public class AudioSpeechImageView extends AppCompatImageView {
         rect.left = getMeasuredHeight();
     }
 
-    public void setSpeechListener(SpeechListener speechListener) {
-        this.speechListener = speechListener;
+    public void setSpeech(Speech speech) {
+        setClickable(true);
+        this.speech = speech;
     }
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        if (speechListener == null) return super.onTouchEvent(event);
+        if (speech == null) return super.onTouchEvent(event);
         switch (event.getAction()) {
             case MotionEvent.ACTION_OUTSIDE:
-                speechListener.tipBreakListener();
+                speech.tipListener(Speech.tipCancel);
                 break;
             case MotionEvent.ACTION_DOWN:
-                speechListener.startListener();
-                removeCallbacks(runnable);
-                postDelayed(runnable, maxMillis);
+                try {
+                    Exception e = speech.startListener();
+                    if (e == null) {
+                        //if e == null,it's mean the media record start success;
+                        speech.tipListener(Speech.start);
+                        removeCallbacks(runnable);
+                        postDelayed(runnable, maxMillis);
+                    } else throw e;
+                } catch (Exception e) {
+                    speech.tipListener(Speech.fileError);
+                    e.printStackTrace();
+                }
                 break;
             case MotionEvent.ACTION_UP:
-                speechListener.stopListener(rect.contains(event.getX(), event.getY()));
+                boolean contains = rect.contains(event.getX(), event.getY());
+                speech.stopListener(contains);
+                speech.tipListener(contains ? Speech.success : Speech.cancel);
                 break;
         }
         return super.onTouchEvent(event);
@@ -79,8 +98,10 @@ public class AudioSpeechImageView extends AppCompatImageView {
     private Runnable runnable = new Runnable() {
         @Override
         public void run() {
-            speechListener.stopListener(true);
+            speech.stopListener(true);
             removeCallbacks(runnable);
         }
     };
+
+
 }
