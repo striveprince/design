@@ -22,7 +22,6 @@ public interface Speech{
     void tipListener(@Status int tipStatus);
 
 //    void setPath(String format,Object... path);
-    void setOutputPath(String outputPath);
 
     @IntDef(value = {
               normal,

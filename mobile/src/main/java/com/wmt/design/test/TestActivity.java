@@ -36,14 +36,16 @@ public class TestActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_test);
-        textView = (TextView) findViewById(R.id.textView);
-        spanAbleInfo = new SpannableString(message);
-//        spanAbleInfo.setSpan(span, 0, 3, Spanned.SPAN_MARK_MARK);
-        spanAbleInfo.setSpan(new CommonClickableSpan(),0,3, Spannable.SPAN_EXCLUSIVE_INCLUSIVE);
-        textView.setMovementMethod(LinkMovementMethod.getInstance());
-        textView.setHighlightColor(getResources().getColor(android.R.color.transparent));
-        textView.setText(spanAbleInfo);
+//        setContentView(R.layout.activity_test);
+//        textView = (TextView) findViewById(R.id.textView);
+//        spanAbleInfo = new SpannableString(message);
+////        spanAbleInfo.setSpan(span, 0, 3, Spanned.SPAN_MARK_MARK);
+//        spanAbleInfo.setSpan(new CommonClickableSpan(),0,3, Spannable.SPAN_EXCLUSIVE_INCLUSIVE);
+//        textView.setMovementMethod(LinkMovementMethod.getInstance());
+//        textView.setHighlightColor(getResources().getColor(android.R.color.transparent));
+//        textView.setText(spanAbleInfo);
+
+//        setContentView(R.layout.activity_ripple);
     }
 
     class CommonClickableSpan extends ClickableSpan implements View.OnClickListener{

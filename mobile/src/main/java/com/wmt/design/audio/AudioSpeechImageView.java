@@ -9,7 +9,6 @@ import android.view.MotionEvent;
 
 import com.wmt.design.R;
 
-import java.io.IOException;
 
 /**
  * project：cutv_ningbo
@@ -47,7 +46,11 @@ public class AudioSpeechImageView extends AppCompatImageView {
     private void init(Context context, @Nullable AttributeSet attrs) {
         rect = new RectF();
         path = context.getResources().getString(R.string.app_name);
-        speech = new AudioRecordCallback();
+    }
+
+    public void setResult(AudioRecordCallback.RecordListener result){
+        setClickable(true);
+        speech = new AudioRecordCallback(path,result);
     }
 
     @Override

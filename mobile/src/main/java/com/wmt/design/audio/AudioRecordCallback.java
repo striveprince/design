@@ -1,34 +1,32 @@
 package com.wmt.design.audio;
 
 import android.media.MediaRecorder;
+import android.os.Environment;
 import android.text.TextUtils;
 
 import java.io.File;
-import java.io.IOException;
+import java.util.Locale;
 
 /**
  * Created by apple on 2017/7/8.
  */
 
 public class AudioRecordCallback implements Speech {
-    private String outputPath = "";
     private MediaRecorder recorder;
     private File file;
+    private String path;
+    private int tip;
+    private RecordListener result;
 
-    public void setOutputPath(String outputPath) {
-        this.outputPath = outputPath;
+    public AudioRecordCallback(String path, RecordListener result) {
+        this.result = result;
+        this.path = path;
     }
 
     @Override
     public Exception startListener() {
-//        String outputPath = String.format(Locale.getDefault(), "%1s%1c%2s%2c%3s"
-//                  , Environment.getExternalStorageDirectory()
-//                  , File.separatorChar
-//                  , path
-//                  , File.separatorChar
-//                  , fileName
-//        );
         try {
+            String outputPath = result.startFile(path(),System.currentTimeMillis());
             if (TextUtils.isEmpty(outputPath)) throw new Exception("please set output path");
             file = new File(outputPath);
             if (file.exists())
@@ -66,14 +64,22 @@ public class AudioRecordCallback implements Speech {
         tip = tipStatus;
     }
 
-    private int tip;
-    private RecordResult result;
 
-    public void setResult(RecordResult result) {
+    public void setResult(RecordListener result) {
         this.result = result;
     }
 
-    public interface RecordResult {
+    public interface RecordListener {
         void onResult(File file, int tipStatus);
+        String startFile(String path, long time);
+    }
+
+    public String path() {
+        return String.format(Locale.getDefault(), "%1s%1c%2s%2c"
+                , Environment.getExternalStorageDirectory()
+                , File.separatorChar
+                , path
+                , File.separatorChar
+        );
     }
 }
